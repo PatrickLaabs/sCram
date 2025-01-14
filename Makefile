@@ -1,7 +1,7 @@
 # Makefile
 
 CC = gcc
-OPTIONS = -std=c11 -I/opt/homebrew/Cellar/openssl@3/3.3.2/include -L/opt/homebrew/Cellar/openssl@3/3.3.2/lib -lssl -lcrypto
+OPTIONS = -std=c11 -I/opt/homebrew/Cellar/openssl@3/3.4.0/include -L/opt/homebrew/Cellar/openssl@3/3.4.0/lib -lssl -lcrypto
 CFLAGS = -Wall -Iinclude
 SRC_DIR = src
 BUILD_DIR = build
@@ -11,14 +11,14 @@ SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
 all: $(TARGET)
 
 $(TARGET):
-	mkdir $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)
 	$(CC) $(OPTIONS) $(CFLAGS) $(SRC_FILES) -o $(TARGET)
 
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(OPTIONS) $(CFLAGS) -c $< -o $%.o
+	$(CC) $(OPTIONS) $(CFLAGS) -c $< -o $(BUILD_DIR)/$*.o
 
 clean:
-	rm -f $(TARGET)
-	rm -r $(BUILD_DIR)
+	rm -f $(BUILD_DIR)/*.o $(TARGET)
+	rm -rf $(BUILD_DIR)
 
-.PHONY: all clean
+.PHONY: all clean $(TARGET)
