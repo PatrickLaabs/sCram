@@ -4,8 +4,10 @@
 TRACE ?= 0
 
 CC = gcc
-OPTIONS = -std=c11 -I/opt/homebrew/Cellar/openssl@3/3.4.1/include -L/opt/homebrew/Cellar/openssl@3/3.4.1/lib -lssl -lcrypto
-CFLAGS = -Wall -Iinclude
+#OPTIONS = -std=c11 -I/opt/homebrew/Cellar/openssl@3/3.4.1/include -L/opt/homebrew/Cellar/openssl@3/3.4.1/lib -lssl -lcrypto
+OPTIONS = -lssl -lcrypto
+#CFLAGS = -Wall -Iinclude
+CFLAGS = -Wall
 SRC_DIR = src
 BUILD_DIR = build
 TARGET = $(BUILD_DIR)/sCram
@@ -20,7 +22,7 @@ help: ## Display this help
 build: ## Building binary
 	@echo "Building sCram binary..."
 	mkdir -p $(BUILD_DIR)
-	$(CC) $(OPTIONS) $(CFLAGS) $(SRC_FILES) -o $(TARGET)
+	$(CC) $(CFLAGS) $(SRC_FILES) -o $(TARGET) $(OPTIONS)
 
 .PHONY: clean
 clean: ## Cleaning up Build directory
